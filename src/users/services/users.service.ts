@@ -9,18 +9,22 @@ import { Order } from '../entities/order.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
 import { ProductsService } from './../../products/services/products.service';
+import { CustomersService } from './customers.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepo: Repository<User>,
+    private customerService: CustomersService,
     private productsService: ProductsService,
     private configService: ConfigService,
     @Inject('PG') private clientPg: Client,
   ) {}
 
   async findAll() {
-    return this.userRepo.find();
+    return this.userRepo.find({
+      relations:['customer']
+    });
   }
 
   async findOne(id: number) {
@@ -33,6 +37,10 @@ export class UsersService {
 
   async create(data: CreateUserDto) {
     const newUser = this.userRepo.create(data);
+    if(data.customerId){
+      const customer = await this.customerService.findOne(data.customerId);
+      newUser.customer = customer;
+   }
     return await this.userRepo.save(newUser);
   }
 

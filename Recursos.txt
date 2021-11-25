@@ -74,3 +74,19 @@ npm i @types/pg -D
 
 # Dependencias para integrar typeorm
 npm install --save @nestjs/typeorm typeorm
+
+# integrar CLI de typeorm
+"typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+
+# generar migraciones
+npm run typeorm -- migration:generate -n "init"
+npm run migrations:generate -- add-fields
+
+# Ejecutar mugraciones
+"migrations:run": "npm run typeorm -- migration:run"
+
+# Muestra migraciones ejecutadas
+"migrations:show": "npm run typeorm -- migration:show"
+# Elimina toda la informacion
+"migrations:drop": "npm run typeorm -- migration:drop"
+
