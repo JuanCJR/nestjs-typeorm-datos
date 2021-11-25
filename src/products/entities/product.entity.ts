@@ -35,7 +35,12 @@ export class Product {
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @ManyToOne(() => Brand)
+  @ManyToOne(
+    () => Brand,
+    (brand) => {
+      brand.products;
+    },
+  )
   @JoinColumn()
   brand: Brand;
 }
