@@ -4,18 +4,17 @@ import {
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToMany
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
-import { Product } from './product.entity';
+import { Product } from '../../products/entities/product.entity';
+import { Order } from './order.entity';
 
 @Entity()
-export class Category {
+export class OrderItem {
   @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
-
-  @Column({ type: 'varchar', length: 255, unique: true })
-  name: string;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
@@ -23,6 +22,12 @@ export class Category {
   @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   updateAt: Date;
 
-  @ManyToMany(()=> Product, (products)=> products.categories)
-  products:Product[]
+  @Column({ type: 'int' })
+  quantity: number;
+
+  @ManyToOne(() => Product)
+  product: Product;
+
+  @ManyToOne(() => Order, (oder) => oder.items)
+  order: Order;
 }
