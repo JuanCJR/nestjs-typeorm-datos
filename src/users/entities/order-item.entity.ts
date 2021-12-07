@@ -5,13 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn,
 } from 'typeorm';
 
 import { Product } from '../../products/entities/product.entity';
 import { Order } from './order.entity';
 
-@Entity()
+@Entity('')
 export class OrderItem {
   @PrimaryGeneratedColumn({ type: 'int' })
   id: number;

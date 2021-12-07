@@ -25,4 +25,6 @@ export class Category {
 
   @ManyToMany(()=> Product, (products)=> products.categories)
   products:Product[]
+
+  
 }
