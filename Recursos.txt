@@ -90,3 +90,35 @@ npm run migrations:generate -- add-fields
 # Elimina toda las tablas de la bd
 "migrations:drop": "npm run typeorm -- migration:drop"
 
+
+# Configuracion de autenticacion
+-- Generacion de modulo auth
+nest g mo auth
+
+-- creacion de guardian
+nest g gu auth/guards/apiKey --flat
+
+
+# Libreria de hashing
+npm i bcrypt 
+
+# Tipado de bcrypt
+npm i @types/bcrypt -D
+
+# Integracion de passport
+npm install --save @nestjs/passport passport passport-local
+npm install --save-dev @types/passport-local
+
+#Integracion JTW
+npm install --save @nestjs/jwt passport-jwt
+npm install --save-dev @types/passport-jwt
+
+#exportar datos de postgresql
+pg_dump -U jcjimenez -h localhost -p 5432 -F t ticketsdb > ticketsdb.tar
+
+# Restaurar base de datos
+pg_restore -h localhost -p 5432 -d ticketsdb -U jcjimenez ticketsdb.tar
+
+
+#cliente pg_dump ubuntu:
+https://computingforgeeks.com/how-to-install-postgresql-13-on-ubuntu/

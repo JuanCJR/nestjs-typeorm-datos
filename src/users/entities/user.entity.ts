@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import {
   PrimaryGeneratedColumn,
   Column,
@@ -18,6 +19,7 @@ export class User {
   @Column({ type: 'varchar', length: 255 })
   email: string;
 
+  @Exclude()
   @Column({ type: 'varchar' })
   password: string;
 

@@ -16,7 +16,7 @@ export class CreateProductDto {
   @IsNotEmpty()
   @ApiProperty({ description: `product's name` })
   readonly name: string;
-  bb;
+  
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
